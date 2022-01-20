@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<h1>Kotiki</h1>
+<body>
+    <img src="" id = "image" width="480" height="500"/>
+    <div id="text" class="text"></div>
+    <button id="button" class="button">Fetch</button>
+</body>
+<script>
+    const urlImg = "https://thatcopy.pw/catapi/rest/";
+    const urlText = "https://cat-fact.herokuapp.com/facts";
+
+const btn = document.getElementById("button");
+btn.addEventListener("click", function(){
+    getImage();
+    getFact();
+})
+    /*getImage();
+    getFact();*/
+
+    async function getImage() {
+    const response = await fetch (urlImg);
+    const data = await response.json();
+    console.log(data.url);
+    document.getElementById('image').src=(data.url)
+
+ }
+ async function getFact() {
+    const response = await fetch (urlText);
+    const data = await response.json();
+   
+    
+    const randomT = data[Math.floor(Math.random()* data.length)] ;
+    const text = JSON.stringify(randomT,['text'])
+    document.getElementById('text').innerHTML= (text);
+    console.log(text);
+ }
+</script>
+</html>
